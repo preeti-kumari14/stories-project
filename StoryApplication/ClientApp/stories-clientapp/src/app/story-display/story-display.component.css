@@ -1,0 +1,35 @@
+table {
+  width: 100%;
+}
+
+.spinner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+  .spinner-container ::ng-deep .mat-progress-spinner circle,
+  .mat-spinner circle {
+    stroke: #007bff !important;
+    height: 50px;
+  }
+
+.mat-paginator {
+  display: flex;
+  justify-content: center;
+}
+
+.table td, .table th {
+  vertical-align: middle !important;
+}
+
+.primary {
+  color: #fff !important;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.gridData {
+  width: 90%;
+}
