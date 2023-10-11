@@ -1,6 +1,14 @@
 <div class="spinner-container" *ngIf="dataloading">
   <mat-spinner></mat-spinner>
 </div>
+
+<mat-form-field appearance="standard" class="full-width">
+  <!--<mat-label>Filter</mat-label>-->
+  <input matInput
+         (keyup)="applyFilter($event)"
+         placeholder="Search Columns"
+         #input />
+</mat-form-field>
 <div class="row" class="mat-elevation-z8 gridData" *ngIf="resultStories.length > 0">
   <div class="col">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -14,7 +22,8 @@
       <ng-container matColumnDef="storyTitle">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
         <td mat-cell *matCellDef="let element">
-        {{element.storyTitle}} </td>
+          {{element.storyTitle}}
+        </td>
       </ng-container>
 
       <!-- URL Column -->

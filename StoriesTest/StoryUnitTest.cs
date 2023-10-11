@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
@@ -20,6 +21,10 @@ namespace StoriesTest
             _cache = cache;
 
         }
+
+        /// <summary>
+        /// Test Method for Unit Testing GetStoryDetails API method
+        /// </summary>
         [TestMethod]
         public void TestMethod1()
         {
@@ -30,6 +35,25 @@ namespace StoriesTest
             Assert.AreEqual(testStories, result?.Result?.Value?.Take(4));
         }
 
+        /// <summary>
+        /// Test Method to Test Caching
+        /// </summary>
+        [TestMethod]
+        public string TestMethod2()
+        {
+            var controller = new StoriesController(_logger, _newsService, _cache);
+            if(_cache != null)
+            {
+                return "Cache Available";
+            }
+            else { return "No Cache Available"; }
+
+        }
+
+        /// <summary>
+        /// Method to create a mocking output of the Stories List
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<StoryDetailsDto> GetTestStories()
         {
             var testStories = new List<StoryDetailsDto>();

@@ -11,6 +11,11 @@ namespace StoryApplication.Services
 {
     public class NewsService : INewsService
     {
+        /// <summary>
+        /// Method to fetch new stories ID list from API 
+        /// post fetching details for stories ,filter out stories with blank URI
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<StoryDetailsDto>> GetStoryDetails()
         {
             try
@@ -19,7 +24,8 @@ namespace StoryApplication.Services
                 var storyDetailsList = new List<StoryDetailsDto>();
                 var newStoryList = await GetNewStories();
 
-                foreach (var story in newStoryList.Take(100))
+                //foreach (var story in newStoryList.Take(213))
+                foreach (var story in newStoryList.Take(20))
                 {
                     string url = reqURL + story.ToString() + ".json?print=pretty";
                     using (var httpClient = new HttpClient())
@@ -49,6 +55,10 @@ namespace StoryApplication.Services
                 throw ex;
             }
         }
+        /// <summary>
+        /// Get New Stories details from API based on Stories ID
+        /// </summary>
+        /// <returns></returns>
         private async Task<List<Int32>> GetNewStories()
         {
             var result = new List<Int32>();
@@ -63,6 +73,13 @@ namespace StoryApplication.Services
             }
             return result;
         }
+        /// <summary>
+        /// Method to deserialize Json to get value
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         private T? JsonValue<T>(JObject json, string propertyName)
         {
             var property = json.Property(propertyName);

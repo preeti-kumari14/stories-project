@@ -22,12 +22,18 @@ namespace StoryApplication.Controllers
             _cache = cache;
 
         }
+
+        /// <summary>
+        /// HTTP Get Controller Method  to Fetch Stories
+        /// if cache is present list will be pulled from cache else from api
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = "GetNewStories")]
         public async Task<ActionResult<IEnumerable<StoryDetailsDto>>> GetStoryDetails()
         {
             if (_cache.TryGetValue(storiesCacheKey, out IEnumerable<StoryDetailsDto> result))
             {
-                _logger.Log(LogLevel.Information, "Employee list found in cache.");
+                _logger.Log(LogLevel.Information, "Story list found in cache.");
             }
             else
             {
