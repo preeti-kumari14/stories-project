@@ -29,10 +29,14 @@ namespace StoryApplication.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetNewStories")]
-        public async Task<ActionResult<IEnumerable<StoryDetailsDto>>> GetStoryDetails()
+
+        public async Task<ActionResult<StoriesDto>> GetStoryDetails()
         {
+            StoriesDto storiesDto = new StoriesDto();
             if (_cache.TryGetValue(storiesCacheKey, out IEnumerable<StoryDetailsDto> result))
             {
+                storiesDto.FromCache = true;
+                storiesDto.stories = result;
                 _logger.Log(LogLevel.Information, "Story list found in cache.");
             }
             else
@@ -41,13 +45,16 @@ namespace StoryApplication.Controllers
 
                 result = await _newsService.GetStoryDetails();
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(60))
-                    .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(30))
                     .SetPriority(CacheItemPriority.Normal)
                     .SetSize(1024);
                 _cache.Set(storiesCacheKey, result, cacheEntryOptions);
+
+                storiesDto.FromCache = false;
+                storiesDto.stories = result;
             }
-            return Ok(result);
+            return Ok(storiesDto);
         }
     }
 }

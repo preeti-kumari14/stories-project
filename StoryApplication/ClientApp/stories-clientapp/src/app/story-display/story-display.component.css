@@ -25,9 +25,9 @@ table {
   justify-content: center;
 }
 
-.table td, .table th {
+/*.table td, .table th {
   vertical-align: middle !important;
-}
+}*/
 
 .primary {
   color: #fff !important;
@@ -36,5 +36,19 @@ table {
 }
 
 .gridData {
-  width: 90%;
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 10px;
+  width: 20%;
+  height: 10%;
+}
+
+.mat-column-position {
+  max-width: 100px;
+}
+
+.mat-column-name {
+  max-width: 100px;
 }

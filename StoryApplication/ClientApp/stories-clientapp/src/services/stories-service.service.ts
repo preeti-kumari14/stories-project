@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { StoryDetails } from '../models/story-details';
 
 @Injectable({
@@ -13,6 +13,10 @@ export class StoriesService {
   constructor(private http: HttpClient) { }
 
   getStoriesDetails(): Observable<StoryDetails[]> {
-    return this.http.get<StoryDetails[]>(this.storiesApiURL) as Observable<StoryDetails[]>;
+    return this.http.get<any>(this.storiesApiURL).pipe(
+      map(response => {
+        return response.stories as StoryDetails[];
+      }),
+    );
   }
 }

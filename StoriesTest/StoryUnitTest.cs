@@ -32,7 +32,7 @@ namespace StoriesTest
             var controller = new StoriesController(_logger, _newsService,_cache);
 
             var result = controller.GetStoryDetails();
-            Assert.AreEqual(testStories, result?.Result?.Value?.Take(4));
+            Assert.AreEqual(testStories, result?.Result?.Value?.stories.Take(4));
         }
 
         /// <summary>
@@ -42,11 +42,12 @@ namespace StoriesTest
         public string TestMethod2()
         {
             var controller = new StoriesController(_logger, _newsService, _cache);
-            if(_cache != null)
+            var result = controller.GetStoryDetails();
+            if(result?.Result?.Value?.FromCache == true)
             {
-                return "Cache Available";
+                return "Cache Exists";
             }
-            else { return "No Cache Available"; }
+            else { return "Cache doesnot Exists"; }
 
         }
 

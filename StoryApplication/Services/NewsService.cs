@@ -24,8 +24,7 @@ namespace StoryApplication.Services
                 var storyDetailsList = new List<StoryDetailsDto>();
                 var newStoryList = await GetNewStories();
 
-                //foreach (var story in newStoryList.Take(213))
-                foreach (var story in newStoryList.Take(20))
+                foreach (var story in newStoryList.Take(213))
                 {
                     string url = reqURL + story.ToString() + ".json?print=pretty";
                     using (var httpClient = new HttpClient())

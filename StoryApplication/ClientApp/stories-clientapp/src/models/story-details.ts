@@ -1,5 +1,5 @@
 export interface StoryDetails {
-  storyId: number;
+  storyId: string;
   storyTitle: string;
   storyUrl: string;
 }
